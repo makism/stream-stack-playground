@@ -3,7 +3,7 @@
 
 Star tthe cluster with
 ```bash
-docker-compose up -f docker-compose-kafka.yml
+docker-compose up
 ```
 
 ## Create the connector
