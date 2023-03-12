@@ -76,6 +76,9 @@ services:
 
   connect:
     image: kafka-connect-s3
+    build:
+      context: .
+      dockerfile: kafka-connect-s3.Dockerfile
     hostname: connect
     container_name: connect
     depends_on:
