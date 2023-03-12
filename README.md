@@ -11,6 +11,13 @@ docker-compose -f cp-docker-compose.yml build
 docker-compose -f cp-docker-compose.yml up
 ```
 
+This image is based on the [Confluent All-In-One Images](https://github.com/confluentinc/cp-all-in-one).
+
+#### TODO
+* Integrate Flink.
+
+<br/>
+
 ### 2 - Kafka and Flink
 
 This is a docker-compose file to run a Kafka cluster with Flink support.
@@ -19,4 +26,7 @@ This is a docker-compose file to run a Kafka cluster with Flink support.
 docker-compose -f kafka-flink.docker-compose.yml build
 docker-compose -f kafka-flink.docker-compose.yml up
 ```
+
+#### TODO
+* Add Kafka support.
 
