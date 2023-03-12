@@ -27,6 +27,15 @@ docker-compose -f kafka-flink.docker-compose.yml build
 docker-compose -f kafka-flink.docker-compose.yml up
 ```
 
+#### Running
+
+Start a job with the following command:
+
+```bash
+docker exec -it stream-stack-playground_jobmanager_1 flink run -py /opt/src/job.py
+```
+
+
 #### TODO
 * Add Kafka support.
 
