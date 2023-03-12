@@ -1,14 +1,28 @@
 
-# Spin
 
-Star tthe cluster with
-```bash
-docker-compose up
-```
+# Kafka with Connect & S3 support
 
-## Create the connector
+This is a docker-compose file to run a Kafka cluster with Connect and S3 (MinIO) support. There's a sample connector that reads from a topic and writes to S3.
 
-The connector is created using the following command:
-```bash
-docker-compose run exec -it connect-cli create kafka-to-s3-connector < /kafka-connectors/kafka-to-s3-connector.properties
-```
+- cp-docker-compose.yml
+- works as expected!
+
+# Kafka and Flink
+
+This is a docker-compose file to run a Kafka cluster with Flink support.
+
+- kafka-flink.docker-compose.yml
+- working on it right now
+
+
+========================================
+
+
+# Kafka (only)
+
+- kafka-only.yml
+
+# Kafka and Spark
+
+- kafka-spark.docker-compose.yml
+
