@@ -4,6 +4,9 @@ networks:
 
 version: '3'
 services:
+  #
+  # Apache Flink
+  #
   jobmanager:
     image: flink-kafka:latest
     build:
@@ -18,9 +21,10 @@ services:
         jobmanager.rpc.address: jobmanager
     networks:
       - flink-cluster
+    depends_on:
+      - zookeeper
     volumes:
       - ./src/flink_kafka_poc:/opt/src/
-
   taskmanager:
     image: flink-kafka:latest
     build:
@@ -35,5 +39,38 @@ services:
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
         taskmanager.numberOfTaskSlots: 2
+    networks:
+      - flink-cluster
+  #
+  # Apache Kafka
+  #
+  zookeeper:
+    image: bitnami/zookeeper:latest
+    ports:
+      - "2181:2181"
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+    networks:
+      - flink-cluster
+  broker:
+    hostname: broker
+    container_name: broker
+    image: bitnami/kafka:latest
+    ports:
+      - 9092:9092
+      - 9101:9101
+      - 29092:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092'
+      KAFKA_JMX_PORT: 9101
+      KAFKA_JMX_HOSTNAME: localhost
+      KAFKA_LISTENERS: 'PLAINTEXT://broker:29092,CONTROLLER://broker:29093,PLAINTEXT_HOST://0.0.0.0:9092'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
+    depends_on:
+      - zookeeper
     networks:
       - flink-cluster

@@ -32,10 +32,11 @@ docker-compose -f kafka-flink.docker-compose.yml up
 Start a job with the following command:
 
 ```bash
-docker exec -it stream-stack-playground_jobmanager_1 flink run -py /opt/src/job.py
+docker exec -it stream-stack-playground_jobmanager_1 flink run -py /opt/src/flink_kafka_consumer.py
 ```
 
-
-#### TODO
-* Add Kafka support.
+Produce some data on the Kafka with
+```bash
+docker exec -it broker kafka-console-producer.sh --bootstrap-server localhost:9092 --topic users
+```
 
