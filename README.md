@@ -27,16 +27,28 @@ docker-compose -f kafka-flink.docker-compose.yml build
 docker-compose -f kafka-flink.docker-compose.yml up
 ```
 
-#### Running
+#### Example jobs
 
-Start a job with the following command:
-
-```bash
-docker exec -it stream-stack-playground_jobmanager_1 flink run -py /opt/src/flink_kafka_consumer.py
-```
-
-Produce some data on the Kafka with
+##### 1. Read lines
+Start the producer and give in some text as input (`src/read_lines/producer.sh`):
 ```bash
 docker exec -it broker kafka-console-producer.sh --bootstrap-server localhost:9092 --topic users
+```
+
+At the same time, start a consumer:
+```bash
+docker exec -it stream-stack-playground_jobmanager_1 flink run -py /opt/src/read_lines/consumer.py
+```
+
+###### 2. JSON events
+
+Produce data with:
+```bash
+python src/flink_kafka/json_events/producer.py --num-events 1000
+```
+
+Read the data from Flink with:
+```bash
+docker exec -it stream-stack-playground_jobmanager_1 flink run -py /opt/src/json_events/consumer.py
 ```
 

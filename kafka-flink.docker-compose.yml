@@ -24,7 +24,7 @@ services:
     depends_on:
       - zookeeper
     volumes:
-      - ./src/flink_kafka_poc:/opt/src/
+      - ./src/flink_kafka:/opt/src/
   taskmanager:
     image: flink-kafka:latest
     build:
