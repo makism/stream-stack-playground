@@ -23,7 +23,7 @@ def init_args_parser():
 def generate_api_event():
     """Generate an API event."""
     return dict(
-        id=random.randint(1, 1000),
+        id=random.randint(1, 10),
         weight=random.random(),
         method=fake.random_element(["GET", "POST", "PUT", "DELETE"]),
         path=fake.uri_path(),
@@ -46,4 +46,5 @@ if __name__ == "__main__":
     for ie in tqdm.tqdm(range(args.num_events)):
         time.sleep(random.randrange(1, 3))
         event = generate_api_event()
+        print(event)
         producer.send("api_events", generate_api_event())
