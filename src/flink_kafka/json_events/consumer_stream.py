@@ -32,6 +32,12 @@ if __name__ == "__main__":
         watermark_strategy=WatermarkStrategy.for_monotonous_timestamps(),
         source_name="kafka source",
     )
-    ds.print()
+
+    ms = (
+        ds.map(lambda row: (row.id, row.weight))
+        .key_by(lambda row: row[0])
+        .sum(1)
+    )
+    ms.print()
 
     env.execute()
