@@ -9,7 +9,7 @@ import faker_microservice
 
 
 def init_args_parser():
-    parser = argparse.ArgumentParser(description="Load and flip an image with OpenCV")
+    parser = argparse.ArgumentParser(description="")
     parser.add_argument(
         "-n",
         "--num-events",
